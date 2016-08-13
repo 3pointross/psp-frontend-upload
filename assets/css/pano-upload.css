@@ -1,0 +1,149 @@
+.pano-btn {
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 0px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pano-btn-primary {
+    background: #2a3542;
+    color: #fff !important;
+}
+
+.pano-btn-primary:hover {
+    background: #666;
+}
+
+.psp-upload-form {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#psp-projects .psp-upload-form li {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+.psp-upload-form label {
+    font-weight: bold;
+    font-size: 12px;
+    display: block;
+    color: #000;
+}
+
+.psp-upload-form label.error {
+    letter-spacing: 0px;
+    text-transform: none;
+    background: #bb3232;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.psp-upload-form input[type=text] {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 3%;
+    width: 94%;
+}
+
+.psp-web-address-field,
+.psp-upload-file-field {
+    display: none;
+}
+
+.pano-add-file-btn {
+    margin-top: 15px !important;
+}
+
+.pano-modal {
+    border-radius: 4px;
+	background: #fff;
+    width: 600px;
+    margin-top: 25px;
+    font-size: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    display: none;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.pano-modal-wrap {
+    padding: 20px;
+}
+
+.pano-modal-doc-actions {
+    background: #f1f1f1;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    margin: 15px -20px -20px;
+}
+
+.pano-modal h2 {
+    color: #fafafa !important;
+    background: #3299bb;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+    margin: -20px -20px 20px -20px !important;
+    padding: 15px !important;
+}
+
+.pano-modal-add-btn {
+    text-align: center;
+}
+
+.pano-modal-add-btn .pano-btn {
+    margin-right: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px
+}
+
+#psp-projects .pano-modal ul.psp-notify-list {
+    margin-top: 10px;
+    max-height: 200px;
+    overflow: auto;
+    display: none;
+}
+
+.psp-doc-upload-notify-fields {
+    display: none;
+}
+
+.pano-modal label.psp-doc-upload-notify {
+    display: inline-block;
+}
+
+.pano-modal ul.psp-notify-list li {
+	display: inline-block;
+	padding: 8px !important;
+	border-radius: 8px;
+	background: #f3f3f3;
+	margin: 5px 10px 5px 0 !important;
+	line-height: 1.25em;
+	min-height: auto !important;
+	white-space: nowrap;
+}
+
+.pano-modal ul.psp-notify-list li.all-line {
+	display: block;
+	line-height: auto;
+	margin-bottom: 5px !important;
+	padding: 0 0 5px 0 !important;
+	border-bottom: 1px solid #efefef;
+	background: transparent;
+}
+
+.pano-modal textarea {
+	width: 100%;
+	display: block;
+	min-height: 100px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
