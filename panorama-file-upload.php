@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: http://www.projectpanorama.com
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -21,7 +20,20 @@ function psp_upload_localize_init() {
 
 }
 
-define( 'PSP_FILE_UPLOAD_VER', '1.4.1' );
+$constants = array(
+    'PSP_FILE_UPLOAD_VER'   =>  '1.4.2',
+    'PSP_FILE_UPLOAD_DIR'   =>  plugins_url( '', __FILE__ ),
+);
+
+foreach( $constants as $constant => $val ) {
+
+    if( !defined( $constant ) ) {
+
+        define( $constant, $val );
+
+    }
+
+}
 
 /**
  * Add the field and form to the page
@@ -61,7 +73,7 @@ function psp_add_upload_field() {
                                 <ul class="psp-notify-list psp-doc-upload-notify-fields">
                                     <li class="all-line"><input type="checkbox" class="all-checkbox" name="psp-notify-all" value="all"> <?php _e( 'All Users', 'psp_projects' ); ?></li>
                             		<?php
-            						$users = psp_get_project_users();
+            						$users = array_unique( psp_get_project_users() );
 
             						foreach( $users as $user ) {
 
@@ -204,10 +216,9 @@ function psp_process_attach_file() {
             $message    .= "<p><strong>" . psp_username_by_id( $cuser->ID ) . " " . __( 'posted ', 'psp_projects') . "<a href='" . $file_url . "'>" . $file_name . "</a> " . __( 'to the project', 'psp_projects' ) . " <a href='" . get_the_permalink( $post_id ) . "'>" . get_the_title( $post_id ) . "</a></p>";
             $message    .= wpautop( $_POST[ 'psp-doc-message' ] );
 
-
             foreach( $users as $user ) {
 
-                psp_send_email( $user, $subject, $message, $post_id );
+                psp_send_progress_email( $user, $subject, $message, $post_id );
 
             }
 
@@ -244,18 +255,18 @@ $files = rearrange( $uploads );
 
 add_action('psp_head','panorama_add_assets');
 function panorama_add_assets() { ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo plugins_url(); ?>/panorama-file-upload/assets/css/pano-upload.css">
-    <script src="<?php echo plugins_url(); ?>/panorama-file-upload/assets/js/jquery.validation.min.js"></script>
-    <script src="<?php echo plugins_url(); ?>/panorama-file-upload/assets/js/pano-upload.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/css/pano-upload.css">
+    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/jquery.validation.min.js"></script>
+    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/pano-upload.js"></script>
 <?php
 }
 
 add_action( 'wp_enqueue_scripts', 'psp_front_upload_add_assets' );
 function psp_front_upload_add_assets() {
 
-	wp_register_style( 'psp-file-upload', plugins_url() . '/panorama-file-upload/assets/css/pano-upload.css', null, PSP_FILE_UPLOAD_VER );
-	wp_register_script( 'psp-validate', plugins_url() . '/panorama-file-upload/assets/js/jquery.validation.min.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
-	wp_register_script( 'psp-file-upload', plugins_url() . '/panorama-file-upload/assets/js/pano-upload.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
+	wp_register_style( 'psp-file-upload', PSP_FILE_UPLOAD_DIR . '/assets/css/pano-upload.css', null, PSP_FILE_UPLOAD_VER );
+	wp_register_script( 'psp-validate', PSP_FILE_UPLOAD_DIR . '/assets/js/jquery.validation.min.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
+	wp_register_script( 'psp-file-upload', PSP_FILE_UPLOAD_DIR . '/assets/js/pano-upload.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
 
 	if( get_post_type() == 'psp_projects' ) {
 
