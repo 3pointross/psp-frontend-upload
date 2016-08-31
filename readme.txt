@@ -46,6 +46,9 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 1.4.2.1 =
+* Misc bug fixes
+
 = 1.4.2 =
 * Fixed issues with outgoing e-mails
 

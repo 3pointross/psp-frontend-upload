@@ -3,7 +3,7 @@
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: http://www.projectpanorama.com
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.4.2
+ * Version: 1.4.2.2
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -21,7 +21,7 @@ function psp_upload_localize_init() {
 }
 
 $constants = array(
-    'PSP_FILE_UPLOAD_VER'   =>  '1.4.2',
+    'PSP_FILE_UPLOAD_VER'   =>  '1.4.2.2',
     'PSP_FILE_UPLOAD_DIR'   =>  plugins_url( '', __FILE__ ),
 );
 
@@ -73,7 +73,7 @@ function psp_add_upload_field() {
                                 <ul class="psp-notify-list psp-doc-upload-notify-fields">
                                     <li class="all-line"><input type="checkbox" class="all-checkbox" name="psp-notify-all" value="all"> <?php _e( 'All Users', 'psp_projects' ); ?></li>
                             		<?php
-            						$users = array_unique( psp_get_project_users() );
+            						$users = psp_get_project_users();
 
             						foreach( $users as $user ) {
 
