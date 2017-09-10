@@ -46,6 +46,28 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 1.5.4 =
+* Added loading indicator on upload
+
+= 1.5.2 = 
+* BUG: Fixes issue where dialog doesn't disappear after uploading
+* BUG: Fixes issue trying to upload a document to a project with no documents
+
+= 1.5.1 =
+* ENHANCEMENT: Supports Panorama 1.5.7 and phase documents
+
+= 1.5 =
+* COMPATIBILITY: Necessary for Panorama 1.5
+* ENHANCEMENT: Nicer experience when selecting users to notify
+* ENHANCEMENT: Usernames are now clickable to select to notify
+* ENHANCEMENT: Added permission psp_upload_documents
+
+= 1.4.4 =
+* Uploaded documents appear at the top of the list instead of the bottom
+
+= 1.4.3 =
+* Update for new modal compatibility
+
 = 1.4.2.1 =
 * Misc bug fixes
 
