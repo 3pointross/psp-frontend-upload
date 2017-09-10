@@ -3,7 +3,7 @@
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: https://github.com/3pointross/psp-frontend-upload
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.5.3
+ * Version: 1.5.4
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -347,9 +347,9 @@ $files = rearrange( $uploads );
 
 add_action('psp_head','panorama_add_assets');
 function panorama_add_assets() { ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/css/pano-upload.css">
-    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/jquery.validation.min.js"></script>
-    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/pano-upload.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/css/pano-upload.css?ver=<?php echo PSP_FILE_UPLOAD_VER; ?>">
+    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/jquery.validation.min.js?ver=<?php echo PSP_FILE_UPLOAD_VER; ?>"></script>
+    <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/pano-upload.js?ver=<?php echo PSP_FILE_UPLOAD_VER; ?>"></script>
 <?php
 }
 
