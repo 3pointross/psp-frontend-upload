@@ -389,13 +389,12 @@ function psp_upload_add_user_permissions() {
 
 }
 
-include_once( 'vendor/github-updater/github-updater.class.php' ); 
+require 'vendor/plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/3pointross/psp-frontend-upload/',
+	__FILE__,
+	'psp-frontend-upload'
+);
 
-add_action( 'admin_init', 'psp_file_upload_github_update' );
-function psp_file_upload_github_update() { 
-	
-	if ( class_exists( 'GitHubUpdater' ) ) {
-		new GitHubUpdater( 'plugin', __FILE__ );
-	}
-	
-}
+//Optional: Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('master');
