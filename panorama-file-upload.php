@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Project Panorama Frontend Upload
- * Plugin URI: http://www.projectpanorama.com
+ * Plugin URI: https://github.com/3pointross/psp-frontend-upload
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.5.4
+ * Version: 1.5.3
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -370,25 +370,6 @@ function psp_front_upload_add_assets() {
 
 }
 
-require 'plugin-update-checker/plugin-update-checker.php';
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://www.projectpanorama.com/updates/?action=get_metadata&slug=panorama-file-upload',
-    __FILE__,
-    'panorama-file-upload'
-);
-
-function psp_front_upload_htmlspecialchars_decode_array($array){
-
-	$newArray = array();
-
-    foreach($array as $key => $val ) {
-        if( is_string( $val ) ) $array[$key] = htmlspecialchars_decode( $val );
-	}
-
-    return $array;
-
-}
-
 add_action( 'init', 'psp_upload_add_user_permissions' );
 function psp_upload_add_user_permissions() {
 
@@ -406,4 +387,15 @@ function psp_upload_add_user_permissions() {
         if( !empty( $role_object ) ) $role_object->add_cap( 'psp_upload_documents' );
     }
 
+}
+
+include_once( 'vendor/github-updater/github-updater.class.php' ); 
+
+add_action( 'admin_init', 'psp_file_upload_github_update' );
+function psp_file_upload_github_update() { 
+	
+	if ( class_exists( 'GitHubUpdater' ) ) {
+		new GitHubUpdater( 'plugin', __FILE__ );
+	}
+	
 }
