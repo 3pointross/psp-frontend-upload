@@ -3,7 +3,7 @@
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: https://github.com/3pointross/psp-frontend-upload
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.5.4
+ * Version: 1.5.7
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -19,7 +19,7 @@ function psp_upload_localize_init() {
 }
 
 $constants = array(
-    'PSP_FILE_UPLOAD_VER'   =>  '1.5.4',
+    'PSP_FILE_UPLOAD_VER'   =>  '1.5.7',
     'PSP_FILE_UPLOAD_DIR'   =>  plugins_url( '', __FILE__ ),
 );
 
@@ -42,14 +42,30 @@ function psp_add_upload_field() {
 add_action( 'psp_inside_phase_doc_wrapper_after', 'psp_add_phase_upload_field', 10, 3 );
 function psp_add_phase_upload_field( $post_id, $phase_id, $phase_key ) {
 
-if( !is_user_logged_in() || !current_user_can( 'psp_upload_documents' ) ) return;
+    if( !is_user_logged_in() || !current_user_can( 'psp_upload_documents' ) ) return;
 
     echo psp_file_upload_button( $phase_key, $phase_id + 1 );
+
 }
 
 function psp_file_upload_button( $phase_key = 'global', $phase_id = 'global' ) {
 
     return '<p class="pano-add-file-btn"><a href="#pano-modal-upload" class="pano-modal-btn pano-btn pano-btn-primary js-pano-upload-file" data-phase-key="' . esc_attr($phase_key) . '" data-phase-id="' . esc_attr($phase_id) . '">'. __( 'Add Document', 'psp_projects' ) . '</a></p>';
+
+}
+
+add_action( 'wp_footer', 'psp_add_upload_modal_footer' );
+function psp_add_upload_modal_footer() {
+
+    wp_reset_postdata();
+
+    global $post;
+
+    if( has_shortcode( $post->post_content, 'project_status' ) ) {
+        echo '<div id="psp-projects">';
+            psp_add_upload_modal();
+        echo '</div>';
+    }
 
 }
 
@@ -59,14 +75,14 @@ function psp_add_upload_modal() {
     global $post; ?>
 
     <div class="psp-modal" id="pano-modal-upload">
-		
+
 		<div class="psp-upload-loading">
 			<img src="<?php echo esc_url( PSP_FILE_UPLOAD_DIR . '/assets/img/loading.gif'); ?>" alt="Loading" class="psp-fu-loading-image">
 		</div>
 
         <h2><?php esc_html_e( 'Add Document', 'psp_projects' ); ?></h2>
 
-        <form id="pano-upload-form" action="<?php the_permalink(); ?>" method="post" class="form" enctype="multipart/form-data">
+        <form id="pano-upload-form" action="<?php the_permalink(); ?>" method="post" autocomplete="false" class="form" enctype="multipart/form-data">
 
             <input type="hidden" name="post_id" value="<?php esc_attr_e($post->ID); ?>">
             <input type="hidden" name="phase_key" value="global">
@@ -86,7 +102,7 @@ function psp_add_upload_modal() {
 
             <p>
                 <label for="file-type"><?php esc_html_e( 'File Type', 'psp_projects' ); ?></label>
-                <input type="radio" value="upload" name="file-type" id="file-type-upload" checked> <?php esc_html_e('Upload','psp_projects'); ?> &nbsp;&nbsp; <input type="radio" name="file-type" id="file-type-web" value="web"> <?php esc_html_e('Web Address','psp_projects'); ?>
+                <input type="radio" value="upload" name="file-type" id="file-type-upload" checked="checked"> <?php esc_html_e('Upload','psp_projects'); ?> &nbsp;&nbsp; <input type="radio" name="file-type" id="file-type-web" value="web"> <?php esc_html_e('Web Address','psp_projects'); ?>
             </p>
 
 
@@ -232,11 +248,12 @@ function psp_process_attach_file() {
     }
 
     $old_files     = get_field( $field_key, $post_id );
+    $status        = apply_filters( 'psp_feu_new_file_status', 'In Review' );
     $new_file      = array(
         array(
             'title'           => $file_name,
             'description'     => $file_desc,
-            'status'          => 'In Review',
+            'status'          => $status,
             'file'            => $attach_id,
             'url'             => $file_url,
             'document_phase'  => $phase_key,
@@ -258,16 +275,34 @@ function psp_process_attach_file() {
 
     /* Check and send notifications */
 
-    if( isset( $_POST[ 'psp-user' ] ) && !empty( $_POST[ 'psp-user' ] ) ) {
+    do_action( 'psp_notify', 'file_uploaded', array(
+        'project_id'    =>  $post_id,
+        'phase'         =>  $phase_key,
+        'user_id'       =>  $cuser->ID,
+        'user_ids'      =>  $_POST['psp-user'],
+        'file_name'     =>  $file_name,
+        'file_url'      =>  $file_url,
+        'file_desc'     =>  $file_desc,
+        'message'       =>  $message,
+    ) );
 
-        $users      = $_POST[ 'psp-user' ];
-        $subject    = psp_username_by_id( $cuser->ID ) . " " . __( 'has posted a new file to ', 'psp_projects' ) . get_the_title( $post_id );
+    $custom_notification = psp_custom_file_uploaded_notification();
 
-        $message    = "<h3 style='font-size: 18px; font-weight: normal; font-family: Arial, Helvetica, San-serif;'>" . get_the_title( $post_id ) . "</h3>";
-        $message    .= "<p><strong>" . psp_username_by_id( $cuser->ID ) . " " . __( 'posted ', 'psp_projects') . "<a href='" . $file_url . "'>" . $file_name . "</a> " . __( 'to the project', 'psp_projects' ) . " <a href='" . get_the_permalink( $post_id ) . "'>" . get_the_title( $post_id ) . "</a></p>";
-        $message    .= wpautop( $_POST[ 'psp-doc-message' ] );
+    if( !$custom_notification ) {
 
-            foreach( $users as $user ) psp_send_progress_email( $user, $subject, $message, $post_id );
+        if( isset($_POST['psp-user']) && !empty($_POST['psp-user']) ) {
+
+            $users      = $_POST['psp-user'];
+            $subject    = psp_username_by_id( $cuser->ID ) . " " . __( 'has posted a new file to ', 'psp_projects' ) . get_the_title( $post_id );
+
+            $message    = "<h3 style='font-size: 18px; font-weight: normal; font-family: Arial, Helvetica, San-serif;'>" . get_the_title( $post_id ) . "</h3>";
+            $message    .= "<p><strong>" . psp_username_by_id($cuser->ID) . " " . __( 'posted ', 'psp_projects') . "<a href='" . $file_url . "'>" . $file_name . "</a> " . __( 'to the project', 'psp_projects' ) . " <a href='" . get_the_permalink( $post_id ) . "'>" . get_the_title( $post_id ) . "</a></p>";
+            $message    .= wpautop( $_POST['psp-doc-message'] );
+
+            foreach( $users as $user ) {
+                psp_send_progress_email( $user, $subject, $message, $post_id );
+            }
+        }
 
     }
 
@@ -353,14 +388,18 @@ function panorama_add_assets() { ?>
 <?php
 }
 
-add_action( 'wp_enqueue_scripts', 'psp_front_upload_add_assets' );
+add_action( 'wp_enqueue_scripts', 'psp_front_upload_add_assets', 1000, 1 );
 function psp_front_upload_add_assets() {
 
 	wp_register_style( 'psp-file-upload', PSP_FILE_UPLOAD_DIR . '/assets/css/pano-upload.css', null, PSP_FILE_UPLOAD_VER );
 	wp_register_script( 'psp-validate', PSP_FILE_UPLOAD_DIR . '/assets/js/jquery.validation.min.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
 	wp_register_script( 'psp-file-upload', PSP_FILE_UPLOAD_DIR . '/assets/js/pano-upload.js', array( 'jquery' ), PSP_FILE_UPLOAD_VER, false );
 
-	if( get_post_type() == 'psp_projects' && is_single() ) {
+    global $post;
+
+	if( ( get_post_type() == 'psp_projects' && is_single() ) || has_shortcode( $post->post_content, 'project_status' ) ) {
+
+        psp_front_assets(1);
 
 		wp_enqueue_style( 'psp-file-upload' );
 		wp_enqueue_script( 'psp-validate' );
@@ -398,3 +437,71 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 
 //Optional: Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('master');
+
+add_filter( 'psp_notification_feeds_repeater_args', 'psp_file_upload_notifications' );
+function psp_file_upload_notifications( $repeater_args ) {
+
+    $repeater_args['fields']['notification']['args']['options']['file_uploaded'] = __( '...a file is uploaded to a project', 'psp_projects' );
+
+    return $repeater_args;
+}
+
+add_filter( 'psp_notifications_replacements_array', 'psp_file_upload_replacements', 10, 3 );
+function psp_file_upload_replacements( $replacements, $notification_type, $args ) {
+
+
+    if( $notification_type == 'file_uploaded' ) {
+
+        $replacements['%user%']         = psp_get_nice_username_by_id( $args['user_id'] );
+        $replacements['%file_name%']    = $args['file_name'];
+        $replacements['%file_url%']     = $args['file_url'];
+        $replacements['%file_desc%']    = $args['file_desc'];
+        $replacements['%message%']      = $args['message'];
+
+        $phase_title = '';
+
+        if( !empty($args['phase']) ) {
+
+            $phases = get_field( 'phases', $args['project_id'] );
+
+            foreach( $phases as $phase ) {
+                if( $phase['phase-comment-key'] == $args['document_phase'] ) {
+                    $replacements['%phase_title%'] = $phase['title'];
+                }
+            }
+
+        }
+
+        $replacements['%phase_title%'] = '';
+
+    }
+
+    return $replacements;
+
+}
+
+function psp_custom_file_uploaded_notification() {
+
+    $feeds = get_posts( array(
+		'post_type'   => "psp-email-feed",
+		'numberposts' => -1,
+		'order'       => 'ASC',
+	) );
+
+	if ( ! empty( $feeds ) && ! is_wp_error( $feeds ) ) {
+		foreach ( $feeds as $feed ) {
+
+            $slug   = get_post_meta( $feed->ID, 'psp_email_feed_notification', true );
+            $email  = get_post_meta( $feed->ID, 'psp_email_feed_recipient_email', true );
+
+            if( $slug == 'file_uploaded' && $email == '%target%' ) {
+                return true;
+            }
+
+		}
+
+	}
+
+    return false;
+
+}

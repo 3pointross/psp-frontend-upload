@@ -46,10 +46,17 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 1.5.7 =
+* Added filter to new document default status
+* Adds automated notification for files uploaded
+
+= 1.5.5 =
+* Fixed bug where form submitted even with validation errors
+
 = 1.5.4 =
 * Added loading indicator on upload
 
-= 1.5.2 = 
+= 1.5.2 =
 * BUG: Fixes issue where dialog doesn't disappear after uploading
 * BUG: Fixes issue trying to upload a document to a project with no documents
 

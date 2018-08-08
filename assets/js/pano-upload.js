@@ -8,7 +8,9 @@ jQuery(document).ready(function($) {
         $('#pano-modal-upload').find('input[type="radio"]').prop( 'checked', false );
         $('#pano-upload-form').find('input[type="submit"]').prop( 'disabled', false ).removeClass('disabled');
         $('#pano-upload-form .psp-notify-list').find('.psp-notify-list').hide();
-		
+
+        $('#pano-upload-form #file-type-upload').prop( 'checked', true );
+
 		$('body').removeClass('psp-modal-on');
 
     }
@@ -75,13 +77,15 @@ jQuery(document).ready(function($) {
 
         e.preventDefault();
 
+        if( !$(this).valid() ) return false;
+
         var ajaxurl     = $('#psp-ajax-url').val();
         var formdata    = new FormData( $(this)[0] );
         var phase_id    = $('#pano-upload-form').find('input[name="phase_id"]').val();
         var phase_key   = $('#pano-upload-form').find('input[name="phase_key"]').val();
 
         $('#pano-upload-form').find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
-		
+
 		$('.psp-upload-loading').show();
 
         $.ajax({
@@ -105,7 +109,7 @@ jQuery(document).ready(function($) {
                 $( target ).find('.doc-status').leanModal({ closeButton: "." });
 
                 psp_reset_upload_form();
-				
+
 				$('.psp-upload-loading').hide();
 
                 if( phase_id != 'global' ) {
@@ -113,13 +117,13 @@ jQuery(document).ready(function($) {
                 }
 
                 // TODO: Still need to update the counts
-
+                
 
             }
         });
 
     });
-	
+
     function psp_upload_count_phase_documents( target ) {
 
         var total = 0;
@@ -190,9 +194,9 @@ jQuery(document).ready(function($) {
             }
         }
     });
-	
+
 	function psp_update_phase_documents_stats() {
-		
+
 	}
 
 });
