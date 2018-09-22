@@ -2,14 +2,16 @@ jQuery(document).ready(function($) {
 
     function psp_reset_upload_form() {
 
-        $('#pano-modal-upload').find('input[type="text"]').val('');
-        $('#pano-modal-upload').find('textarea').val('');
-        $('#pano-modal-upload').find('input[type="checkbox"]').prop( 'checked', false );
-        $('#pano-modal-upload').find('input[type="radio"]').prop( 'checked', false );
+        $('.m-psp-file-upload').find('input[type="text"]').val('');
+        $('.m-psp-file-upload').find('textarea').val('');
+        $('.m-psp-file-upload').find('input[type="checkbox"]').prop( 'checked', false );
+        $('.m-psp-file-upload').find('input[type="radio"]').prop( 'checked', false );
         $('#pano-upload-form').find('input[type="submit"]').prop( 'disabled', false ).removeClass('disabled');
         $('#pano-upload-form .psp-notify-list').find('.psp-notify-list').hide();
 
         $('#pano-upload-form #file-type-upload').prop( 'checked', true );
+
+        $('.psp-task-documents .pano-btn').fadeIn('fast');
 
 		$('body').removeClass('psp-modal-on');
 
@@ -21,14 +23,22 @@ jQuery(document).ready(function($) {
 
         var phase_id    = $(this).data('phase-id');
 
-        $('#pano-modal-upload input[name="phase_key"]').val( $(this).data('phase-key') );
-        $('#pano-modal-upload input[name="phase_id"]').val( phase_id );
+        $('.m-psp-file-upload input[name="phase_key"]').val( $(this).data('phase-key') );
+        $('.m-psp-file-upload input[name="phase_id"]').val( phase_id );
 
         if( phase_id != 'global' ) {
-            $('#pano-modal-upload').attr( 'action', window.location + '%23phase-documents-' + phase_id++ );
+            $('.m-psp-file-upload').attr( 'action', window.location + '%23phase-documents-' + phase_id++ );
         } else {
-            $('#pano-modal-upload').attr( 'action', window.location );
+            $('.m-psp-file-upload').attr( 'action', window.location );
         }
+
+    });
+
+    $('#psp-projects').on( 'click', '.js-pano-upload-file-inline', function(e) {
+
+        e.preventDefault();
+        $(this).parent().siblings('.m-psp-inline-upload').slideDown('fast');
+        $(this).slideUp('fast');
 
     });
 
@@ -45,7 +55,7 @@ jQuery(document).ready(function($) {
 
     if($('.all-upload-line').length) {
 
-    $('.all-do-checkbox').click(function() {
+    $('#psp-projects').on( 'click', '.all-do-checkbox', function() {
 
         if( $(this).is(':checked') ) {
             $(this).parents('#pano-upload-form').find('.psp-doc-upload-notify-fields').slideDown('fast');
@@ -58,7 +68,7 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('.specific-do-checkbox').click(function() {
+    $('#psp-projects').on( 'click', '.specific-do-checkbox', function() {
 
         if( $(this).is(':checked') ) {
             $(this).parents('#pano-upload-form').find('.psp-doc-upload-notify-fields').slideDown('fast');
@@ -71,22 +81,40 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('#pano-upload-form').append( '<input type="hidden" name="psp-ajax" value="1">' );
-
-    $('#pano-upload-form').submit(function(e) {
+    $(document).on( 'submit', '.m-pano-upload-form', function(e) {
 
         e.preventDefault();
 
         if( !$(this).valid() ) return false;
 
+        $(this).find('input[name="psp-ajax"]').val(1);
+
         var ajaxurl     = $('#psp-ajax-url').val();
         var formdata    = new FormData( $(this)[0] );
-        var phase_id    = $('#pano-upload-form').find('input[name="phase_id"]').val();
-        var phase_key   = $('#pano-upload-form').find('input[name="phase_key"]').val();
 
-        $('#pano-upload-form').find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
+        var is_task_panel = false;
+        var is_phase      = false;
 
-		$('.psp-upload-loading').show();
+        if( formdata.get('task_key') ) {
+            is_task_panel = true;
+        }
+
+        if( formdata.get('phase_key') ) {
+            is_phase = true;
+        }
+
+        /*
+
+        Depricated
+
+        var phase_id    = $(this).find('input[name="phase_id"]').val();
+        var phase_key   = $(this).find('input[name="phase_key"]').val();
+        var task_key    = $(this).find('input[name="task_key"]').val();
+        */
+
+        $(this).find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
+
+		$(this).find('.psp-upload-loading').show();
 
         $.ajax({
             url: ajaxurl + '?action=psp_process_attach_file',
@@ -96,15 +124,28 @@ jQuery(document).ready(function($) {
             contentType: false,
             success: function( response ) {
 
+                if( is_task_panel ) {
+                    target = $( response.data.results.target.panel );
+                    task_target = $( response.data.results.target.task );
+                    phase_target = $( response.data.results.target.phase );
+                } else {
+                    target = $( response.data.results.target );
+                }
+                /*
                 if( phase_id == 'global' ) {
                     target = $('#psp-documents');
                 } else {
                     target = $('#phase-'+phase_id);
-                }
+                } */
 
                 $(target).find('.phase-docs-empty-message').hide();
                 $(target).find('.psp-documents-row').prepend( response.data.results.markup );
-                $('#pano-modal-upload').fadeOut('slow');
+
+                if( is_task_panel ) {
+                    $('.m-psp-inline-upload').slideUp();
+                } else {
+                    $('.m-psp-file-upload').fadeOut('slow');
+                }
 
                 $( target ).find('.doc-status').leanModal({ closeButton: "." });
 
@@ -112,12 +153,14 @@ jQuery(document).ready(function($) {
 
 				$('.psp-upload-loading').hide();
 
-                if( phase_id != 'global' ) {
-                    psp_update_phase_documents_stats( target );
+                if( is_task_panel ) {
+                    psp_update_task_document_stats( target, task_target, response.data.results.counts.task );
+                    psp_update_phase_documents_stats( phase_target, response.data.results.counts.phase );
+                } else if( is_phase ) {
+                    psp_update_phase_documents_stats( target, response.data.results.counts.phase );
                 }
 
-                // TODO: Still need to update the counts
-                
+                psp_update_document_stats( response.data.results.counts.total );
 
             }
         });
@@ -147,7 +190,7 @@ jQuery(document).ready(function($) {
 
 }
 
-    $('.psp-doc-upload-notify-checkbox').change(function() {
+    $('#psp-projects').on( 'change', '.psp-doc-upload-notify-checkbox', function() {
 
         if( $(this).prop('checked') ) {
             $('.psp-doc-upload-notify-fields').slideDown( 'slow' );
@@ -172,12 +215,10 @@ jQuery(document).ready(function($) {
     }
 
     panoAlterFields();
-    $('.pano-modal-btn').leanModal({closeButton: ".modal_close"});
-    $('.pano-modal-btn a').click(function() {
-       console.log('fired');
-    });
 
-    $('input[name=file-type]').change(function() {
+    $('.js-pano-upload-file').leanModal({ closeButton: ".modal_close" });
+
+    $('#psp-projects').on( 'change', 'input[name=file-type]', function() {
 
         panoAlterFields();
 
@@ -195,8 +236,55 @@ jQuery(document).ready(function($) {
         }
     });
 
-	function psp_update_phase_documents_stats() {
+	function psp_update_phase_documents_stats( target, count ) {
+
+        console.log( target );
+        console.log( count );
+
+        $( target ).find('.psp-phase-document-count').text( count.total );
+
+        $(target).find('.psp-doc-approved').show();
+        $(target).find('.psp-doc-empty').hide();
+
+        $(target).find('.doc-approved-count').text( count.approved );
+        $(target).find('.doc-total-count').text( count.total );
 
 	}
+
+    function psp_update_task_document_stats( target, task_target, count ) {
+
+        // Update in the task panel
+        $('#task-panel-tabs').find('#documents-count').text( count.total );
+
+        // Add the HTML if it doesn't currently exist
+        if( !$(task_target).siblings('.after-task-name').find('.psp-task-documents').length ) {
+
+            if( !$(task_target).siblings('.after-task-name').length ) {
+                $(task_target).append('b.after-task-name');
+            }
+
+            var phase_id = $(task_target).data('phase_id');
+            var task_id  = $(task_target).data('task_id');
+
+            var doc_count_html = '<b class="psp-task-documents js-open-task-panel" data-target="phase-' + phase_id + '-task-' + task_id + '"><i class="psp-fi-icon psp-fi-edit"></i> <span class="text"></span></b>';
+
+            $(task_target).siblings('.after-task-name').append( doc_count_html );
+
+        }
+
+        // Update
+        $( task_target ).siblings('.after-task-name').find('.psp-task-documents span.text').text( count.total );
+
+    }
+
+    function psp_update_document_stats( count ) {
+
+        $('#psp-stat-documents').find('h3').html( '<span>' + count.approved + '</span>/' + count.total );
+
+        allSummaryCharts.documents.segments[0].value = count.total;
+        allSummaryCharts.documents.segments[0].value = count.approved;
+        allSummaryCharts.documents.update();
+
+    }
 
 });

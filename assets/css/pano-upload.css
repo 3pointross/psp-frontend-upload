@@ -50,7 +50,7 @@
     margin-top: 15px !important;
 }
 
-.pano-modal {
+.m-psp-file-upload {
     border-radius: 4px;
 	background: #fff;
     width: 600px;
@@ -61,6 +61,45 @@
     max-height: calc(100vh - 140px);
     overflow-y: auto;
 }
+
+.m-psp-inline-upload {
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+.m-psp-inline-upload .m-psp-file-upload {
+    display: block;
+    box-shadow: none;
+    max-height: none;
+    overflow-y: visible;
+    width: auto;
+    border-radius: 0;
+    border-radius: 0;
+}
+
+.m-psp-inline-upload .m-psp-file-upload h2 {
+    padding: 15px 10px !important;
+    font-size: 18px !important;
+    border-radius: 0;
+    margin: -41px -16px 15px -16px !important;
+}
+
+.m-psp-inline-upload label {
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+	color: #333;
+	margin-bottom: 5px;
+}
+
+#psp-projects .m-psp-inline-upload p {
+    margin-bottom: 10px;
+}
+
+.m-psp-inline-upload input[type='text'] {
+    width: 100%;
+}
+
 
 .pano-modal-wrap {
     padding: 20px;
@@ -73,7 +112,7 @@
     margin: 15px -20px -20px;
 }
 
-.pano-modal h2 {
+.m-psp-file-upload h2 {
     color: #fafafa !important;
     background: #3299bb;
     text-align: center;
@@ -92,7 +131,7 @@
     padding-bottom: 7px
 }
 
-#psp-projects .pano-modal ul.psp-notify-list {
+#psp-projects .m-psp-file-upload ul.psp-notify-list {
     margin-top: 10px;
     max-height: 200px;
     overflow: auto;
@@ -103,22 +142,11 @@
     display: none;
 }
 
-.pano-modal label.psp-doc-upload-notify {
+.m-psp-file-upload label.psp-doc-upload-notify {
     display: inline-block;
 }
 
-.pano-modal ul.psp-notify-list li {
-	display: inline-block;
-	padding: 8px !important;
-	border-radius: 8px;
-	background: #f3f3f3;
-	margin: 5px 10px 5px 0 !important;
-	line-height: 1.25em;
-	min-height: auto !important;
-	white-space: nowrap;
-}
-
-.pano-modal ul.psp-notify-list li.all-line {
+.m-psp-file-upload ul.psp-notify-list li.all-line {
 	display: block;
 	line-height: auto;
 	margin-bottom: 5px !important;
@@ -127,7 +155,7 @@
 	background: transparent;
 }
 
-.pano-modal textarea {
+.m-psp-file-upload textarea {
 	width: 100%;
 	display: block;
 	min-height: 100px;
@@ -152,4 +180,10 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
+}
+
+.psp-task-documents p.pano-add-file-btn a {
+    display: block;
+    width: 100%;
+    text-align: center;
 }
