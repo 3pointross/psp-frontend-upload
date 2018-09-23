@@ -229,6 +229,25 @@ function psp_upload_field_radio( $field ) {
 
 }
 
+function psp_upload_field_checkbox( $field ) {
+
+    $required = isset($field['required']) ? 'required' : '';
+    $class = 'psp-upload-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+
+    <p class="<?php echo esc_attr($class); ?>">
+        <?php if( isset($field['label']) && !empty($field['label'] ) ): ?>
+            <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
+        <?php
+        endif;
+        foreach( $field['options'] as $option ) { ?>
+            <label for="<?php echo esc_attr($option['id']); ?>"><input type="checkbox" name="<?php echo esc_attr($option['name']); ?>" id="<?php echo esc_attr($option['id']); ?>" value="<?php echo esc_attr($option['value']); ?>"> <?php echo esc_html($option['label']); ?></label>
+        <?php } ?>
+    </p>
+
+    <?php
+
+}
+
 function psp_upload_get_fields( $post_id = null ) {
 
     if( !isset($post_id) || empty($post_id) ) {
@@ -272,6 +291,20 @@ function psp_upload_get_fields( $post_id = null ) {
             'type'  => 'text',
             'name'  =>  'file-description',
             'label' =>  __( 'Description', 'psp_projects' )
+        ),
+        array(
+            'id'    =>  'no-approval',
+            'type'  =>  'checkbox',
+            'name'  =>  'no-approval',
+            'class' =>  'psp-needs-approval-field',
+            'options'   =>  array(
+                array(
+                    'id'    =>  'psp-doc-no-approval',
+                    'value' =>  'yes',
+                    'label' =>  __( 'No Approval Needed', 'psp_projects' ),
+                    'name'  =>  'no-approval'
+                )
+            )
         ),
         array(
             'id'        => 'file-type',

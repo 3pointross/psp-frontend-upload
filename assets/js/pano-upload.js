@@ -11,6 +11,10 @@ jQuery(document).ready(function($) {
 
         $('#pano-upload-form #file-type-upload').prop( 'checked', true );
 
+        $('#pano-upload-form .psp-web-address-field').hide();
+        $('#pano-upload-form .psp-upload-file-field').show();
+        $('#pano-modal-upload').removeClass('processing');
+
         $('.psp-task-documents .pano-btn').fadeIn('fast');
 
 		$('body').removeClass('psp-modal-on');
@@ -92,6 +96,7 @@ jQuery(document).ready(function($) {
         var ajaxurl     = $('#psp-ajax-url').val();
         var formdata    = new FormData( $(this)[0] );
 
+        // Identify where this is being uploaded
         var is_task_panel = false;
         var is_phase      = false;
 
@@ -103,18 +108,9 @@ jQuery(document).ready(function($) {
             is_phase = true;
         }
 
-        /*
-
-        Depricated
-
-        var phase_id    = $(this).find('input[name="phase_id"]').val();
-        var phase_key   = $(this).find('input[name="phase_key"]').val();
-        var task_key    = $(this).find('input[name="task_key"]').val();
-        */
-
         $(this).find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
 
-		$(this).find('.psp-upload-loading').show();
+		$('#pano-modal-upload').find('.psp-upload-loading').show();
 
         $.ajax({
             url: ajaxurl + '?action=psp_process_attach_file',
@@ -154,10 +150,10 @@ jQuery(document).ready(function($) {
 				$('.psp-upload-loading').hide();
 
                 if( is_task_panel ) {
-                    psp_update_task_document_stats( target, task_target, response.data.results.counts.task );
-                    psp_update_phase_documents_stats( phase_target, response.data.results.counts.phase );
+                    psp_update_task_document_stats( target, task_target, response.data.results.counts.task, response.data.results.counts.phase_tasks );
+                    psp_update_phase_documents_stats( phase_target, response.data.results.counts.phase, response.data.results.counts.phase_tasks );
                 } else if( is_phase ) {
-                    psp_update_phase_documents_stats( target, response.data.results.counts.phase );
+                    psp_update_phase_documents_stats( target, response.data.results.counts.phase, response.data.results.counts.phase_tasks );
                 }
 
                 psp_update_document_stats( response.data.results.counts.total );
@@ -236,22 +232,21 @@ jQuery(document).ready(function($) {
         }
     });
 
-	function psp_update_phase_documents_stats( target, count ) {
+	function psp_update_phase_documents_stats( target, phase, tasks ) {
 
-        console.log( target );
-        console.log( count );
+        var total_phase_documents = phase.total + tasks.total;
 
-        $( target ).find('.psp-phase-document-count').text( count.total );
+        $( target ).find('.psp-phase-document-count').text( total_phase_documents );
 
         $(target).find('.psp-doc-approved').show();
         $(target).find('.psp-doc-empty').hide();
 
-        $(target).find('.doc-approved-count').text( count.approved );
-        $(target).find('.doc-total-count').text( count.total );
+        $(target).find('.doc-approved-count').text( phase.approved );
+        $(target).find('.doc-total-count').text( phase.total );
 
 	}
 
-    function psp_update_task_document_stats( target, task_target, count ) {
+    function psp_update_task_document_stats( target, task_target, count, phase_count ) {
 
         // Update in the task panel
         $('#task-panel-tabs').find('#documents-count').text( count.total );
@@ -266,7 +261,7 @@ jQuery(document).ready(function($) {
             var phase_id = $(task_target).data('phase_id');
             var task_id  = $(task_target).data('task_id');
 
-            var doc_count_html = '<b class="psp-task-documents js-open-task-panel" data-target="phase-' + phase_id + '-task-' + task_id + '"><i class="psp-fi-icon psp-fi-edit"></i> <span class="text"></span></b>';
+            var doc_count_html = '<b class="psp-task-documents js-open-task-panel" data-target="phase-' + phase_id + '-task-' + task_id + '"><i class="fa fa-files-o"></i> <span class="text"></span></b>';
 
             $(task_target).siblings('.after-task-name').append( doc_count_html );
 
@@ -274,6 +269,8 @@ jQuery(document).ready(function($) {
 
         // Update
         $( task_target ).siblings('.after-task-name').find('.psp-task-documents span.text').text( count.total );
+
+        $( task_target ).parents('.psp-task-list-wrapper').find('.task-doc-count').html( '<i class="fa fa-files-o"></i> ' + phase_count.approved + '/' + phase_count.total );
 
     }
 

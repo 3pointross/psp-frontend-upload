@@ -30,6 +30,7 @@ function psp_process_attach_file() {
     $phase_key  = ( $_POST['phase_key'] == 'global' ? '' : $_POST['phase_key'] );
     $task_key   = ( isset( $_POST['task_key'] ) ? $_POST['task_key'] : false );
     $message    = ( isset( $_POST['message'] ) ? $_POST['message'] : false );
+	$no_approval = ( isset($_POST['no-approval']) && $_POST['no-approval'] == 'yes' ? true : false );
 
     if ( $_POST[ 'file-type' ] == 'upload') {
 
@@ -94,6 +95,11 @@ function psp_process_attach_file() {
 
     $old_files     = get_field( $field_key, $post_id );
     $status        = apply_filters( 'psp_feu_new_file_status', 'In Review' );
+
+	if( $no_approval ) {
+		$status = 'none';
+	}
+
     $new_file      = array(
         array(
             'title'           => $file_name,
@@ -161,7 +167,7 @@ function psp_process_attach_file() {
 
 			$parent_phase = psp_get_phase_by_task( $task_key, $post_id );
 			$parent_phase['index']++;
-			
+
 			$type   = 'task';
             $target = array(
 				'panel'	=> '.task-panel-tabs-content',
@@ -186,6 +192,7 @@ function psp_process_attach_file() {
 				'total' => psp_count_documents( $post_id ),
 				'task'	=> psp_count_documents( $post_id, array( 'task' => $task_key ) ),
 				'phase'	=> psp_count_documents( $post_id, array( 'phase' => $phase_key ) ),
+				'phase_tasks' => psp_count_documents( $post_id, array( 'phase_tasks' => $phase_key ) ),
 			),
             'markup'    =>  psp_get_single_document_markup( $post_id, $new_file['index'] )
         );

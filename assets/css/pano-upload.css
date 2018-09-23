@@ -146,6 +146,10 @@
     display: inline-block;
 }
 
+#psp-projects p.psp-needs-approval-field {
+    margin-bottom: 15px;
+}
+
 .m-psp-file-upload ul.psp-notify-list li.all-line {
 	display: block;
 	line-height: auto;
