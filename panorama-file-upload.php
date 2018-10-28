@@ -41,8 +41,9 @@ add_action( 'init', 'psp_upload_add_user_permissions' );
 function psp_upload_add_user_permissions() {
 
     // Only run once
+    //
 
-    if( get_option('psp_upload_set_user_permissions') ) {
+    if( get_option('psp_upload_set_user_permissions') == '2' ) {
         return;
     }
 
@@ -60,7 +61,7 @@ function psp_upload_add_user_permissions() {
         if( !empty( $role_object ) ) $role_object->add_cap( 'psp_upload_documents' );
     }
 
-    update_option( 'psp_upload_set_user_permissions', true );
+    update_option( 'psp_upload_set_user_permissions', '2' );
 
 }
 
