@@ -89,8 +89,6 @@ jQuery(document).ready(function($) {
 
     $(document).on( 'submit', '.m-pano-upload-form', function(e) {
 
-        console.log('fired yall');
-
         e.preventDefault();
 
         if( !$(this).valid() ) return false;
@@ -104,11 +102,14 @@ jQuery(document).ready(function($) {
         var is_task_panel = false;
         var is_phase      = false;
 
-        if( formdata.get('task_key') ) {
+        var phase_key = $(this).find('#phase_key').val();
+        var task_key  = $(this).find('#task_key').val();
+
+        if( task_key ) {
             is_task_panel = true;
         }
 
-        if( formdata.get('phase_key') ) {
+        if( phase_key ) {
             is_phase = true;
         }
 

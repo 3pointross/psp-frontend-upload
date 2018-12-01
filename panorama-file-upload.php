@@ -3,7 +3,7 @@
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: https://github.com/3pointross/psp-frontend-upload
  * Description: Let your clients and project managers upload files from the front end
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -19,7 +19,7 @@ function psp_upload_localize_init() {
 }
 
 $constants = array(
-    'PSP_FILE_UPLOAD_VER'   =>  '1.6.1',
+    'PSP_FILE_UPLOAD_VER'   =>  '1.6.2',
     'PSP_FILE_UPLOAD_DIR'   =>  plugins_url( '', __FILE__ ),
 );
 
@@ -86,14 +86,14 @@ function psp_file_upload_notifications( $repeater_args ) {
 add_filter( 'psp_notifications_replacements_array', 'psp_file_upload_replacements', 10, 3 );
 function psp_file_upload_replacements( $replacements, $notification_type, $args ) {
 
-
     if( $notification_type == 'file_uploaded' ) {
 
-        $replacements['%user%']         = psp_get_nice_username_by_id( $args['user_id'] );
+        $replacements['%username%']     = psp_get_nice_username_by_id( $args['user_id'] );
         $replacements['%file_name%']    = $args['file_name'];
         $replacements['%file_url%']     = $args['file_url'];
         $replacements['%file_desc%']    = $args['file_desc'];
         $replacements['%message%']      = $args['message'];
+        $replacements['%project_title%'] = get_the_title( $args['project_id'] );
 
         $phase_title = '';
 
@@ -131,7 +131,7 @@ function psp_custom_file_uploaded_notification() {
             $slug   = get_post_meta( $feed->ID, 'psp_email_feed_notification', true );
             $email  = get_post_meta( $feed->ID, 'psp_email_feed_recipient_email', true );
 
-            if( $slug == 'file_uploaded' && $email == '%target%' ) {
+            if( $slug == 'file_uploaded' && $email == '%users%' ) {
                 return true;
             }
 

@@ -127,17 +127,47 @@ function psp_process_attach_file() {
 
     /* Check and send notifications */
 
-    do_action( 'psp_notify', 'file_uploaded', array(
-        'project_id'    =>  $post_id,
-        'phase'         =>  $phase_key,
-        'user_id'       =>  $cuser->ID,
-        'user_ids'      =>  ( isset($_POST['psp-user']) ? $_POST['psp-user'] : false ),
-        'task_key'      =>  $task_key,
-        'file_name'     =>  $file_name,
-        'file_url'      =>  $file_url,
-        'file_desc'     =>  $file_desc,
-        'message'       =>  $message,
-    ) );
+	$notification_args = array(
+	        'project_id'    =>  $post_id,
+			'post_id'		=>  $post_id,
+	        'phase'         =>  $phase_key,
+	        'user_id'       =>  $cuser->ID,
+	        'task_key'      =>  $task_key,
+	        'file_name'     =>  $file_name,
+	        'file_url'      =>  $file_url,
+	        'file_desc'     =>  $file_desc,
+	        'message'       =>  $message,
+	);
+
+	if( isset($_POST['psp-user']) ) {
+
+		$notification_args['user_ids'] = $_POST['psp-user'];
+
+	} else {
+
+		$users = psp_get_project_users( $post_id );
+
+		$user_ids = array();
+
+		foreach( $users as $user ) {
+
+			if( psp_task_is_private( $task_key, $post_id ) || psp_phase_is_private( $phase_key, $post_id ) ) {
+
+				if( !user_can( $user['ID'], 'edit_psp_projects') ) {
+					continue;
+				}
+
+			}
+
+			$user_ids[] = $user['ID'];
+		}
+
+
+		$notification_args['user_ids'] = $user_ids;
+
+	}
+
+    do_action( 'psp_notify', 'file_uploaded', $notification_args );
 
     $custom_notification = psp_custom_file_uploaded_notification();
 
