@@ -1,8 +1,8 @@
 === Project Panorama File Upload ===
 Contributors: Ross Johnson
 Tags: project, management, project management, basecamp, status, client, admin, intranet
-Requires at least: 3.5.0
-Tested up to: 4.0
+Requires at least: 4.7.0
+Tested up to: 5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,12 @@ A. This is not supported at the moment
 
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
+
+= 1.6.3.1 =
+* Back ported for older versions of Panorama
+
+= 1.6.3 =
+* Better support for custom template usage
 
 = 1.6.2 =
 * Adds support for private phases and notifications

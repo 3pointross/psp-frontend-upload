@@ -38,11 +38,19 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('#psp-projects').on( 'click', '.js-pano-upload-file-inline', function(e) {
+    $('body').on( 'click', '.js-pano-upload-file-inline', function(e) {
 
         e.preventDefault();
         $(this).parent().siblings('.m-psp-inline-upload').slideDown('fast');
         $(this).slideUp('fast');
+
+    });
+
+    $('body').on( 'click', '#task-panel-tabs .modal_close', function(e) {
+
+        e.preventDefault();
+        $(this).parents('.psp-task-documents').find('.m-psp-inline-upload').slideUp('fast');
+        $(this).parents('.psp-task-documents').find('.pano-add-file-btn a').slideDown('fast');
 
     });
 

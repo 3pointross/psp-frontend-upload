@@ -30,7 +30,7 @@ function psp_add_phase_upload_field( $post_id, $phase_id, $phase_key ) {
  */
 function psp_file_upload_button( $phase_key = 'global', $phase_id = 'global' ) {
 
-    return '<p class="pano-add-file-btn"><a href="#pano-modal-upload" class="pano-modal-btn pano-btn pano-btn-primary js-pano-upload-file" data-phase-key="' . esc_attr($phase_key) . '" data-phase-id="' . esc_attr($phase_id) . '">'. __( 'Add Document', 'psp_projects' ) . '</a></p>';
+    return '<p class="pano-add-file-btn"><a href="#pano-modal-upload" class="pano-btn pano-btn-primary js-pano-upload-file" data-phase-key="' . esc_attr($phase_key) . '" data-phase-id="' . esc_attr($phase_id) . '">'. __( 'Add Document', 'psp_projects' ) . '</a></p>';
 
 }
 
@@ -58,7 +58,7 @@ function psp_add_upload_modal_footer() {
 
     global $post;
 
-    if( has_shortcode( $post->post_content, 'project_status' ) ) {
+    if( has_shortcode( $post->post_content, 'project_status' ) || is_singular('psp_projects') ) {
         echo '<div id="psp-projects">';
             psp_add_upload_modal();
         echo '</div>';

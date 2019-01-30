@@ -151,15 +151,17 @@ function psp_process_attach_file() {
 
 		foreach( $users as $user ) {
 
-			if( psp_task_is_private( $task_key, $post_id ) || psp_phase_is_private( $phase_key, $post_id ) ) {
-
-				if( !user_can( $user['ID'], 'edit_psp_projects') ) {
-					continue;
+			// If current version of Panorama supports private tasks / phases
+			if( function_exists('psp_task_is_private') && function_exists('psp_phase_is_private') ) {
+				if( psp_task_is_private( $task_key, $post_id ) || psp_phase_is_private( $phase_key, $post_id ) ) {
+					if( !user_can( $user['ID'], 'edit_psp_projects') ) {
+						continue;
+					}
 				}
-
 			}
 
 			$user_ids[] = $user['ID'];
+
 		}
 
 

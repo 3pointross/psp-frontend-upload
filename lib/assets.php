@@ -7,7 +7,7 @@ function panorama_add_assets() { ?>
 <?php
 }
 
-add_action( 'wp_enqueue_scripts', 'psp_front_upload_add_assets', 1000, 1 );
+add_action( 'wp_enqueue_scripts', 'psp_front_upload_add_assets', 9999999, 1 );
 function psp_front_upload_add_assets() {
 
 	wp_register_style( 'psp-file-upload', PSP_FILE_UPLOAD_DIR . '/assets/css/pano-upload.css', null, PSP_FILE_UPLOAD_VER );
