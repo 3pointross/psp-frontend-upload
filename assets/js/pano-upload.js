@@ -18,6 +18,8 @@ jQuery(document).ready(function($) {
         $('.psp-task-documents .pano-btn').fadeIn('fast');
 
 		$('body').removeClass('psp-modal-on');
+        $('#psp-projects').removeClass('psp-has-modal');
+        $('.psp-modal-wrap').fadeOut();
 
     }
     psp_reset_upload_form();
@@ -262,7 +264,7 @@ jQuery(document).ready(function($) {
         $('#task-panel-tabs').find('#documents-count').text( count.total );
 
         // Add the HTML if it doesn't currently exist
-        if( !$(task_target).siblings('.after-task-name').find('.psp-task-documents').length ) {
+        if( !$('body').hasClass('psp-dashboard-tasks-page') && !$(task_target).siblings('.after-task-name').find('.psp-task-documents').length ) {
 
             if( !$(task_target).siblings('.after-task-name').length ) {
                 $(task_target).append('b.after-task-name');
@@ -277,10 +279,18 @@ jQuery(document).ready(function($) {
 
         }
 
-        // Update
-        $( task_target ).siblings('.after-task-name').find('.psp-task-documents span.text').text( count.total );
+        if( !$('body').hasClass('psp-dashboard-tasks-page') ) {
 
-        $( task_target ).parents('.psp-task-list-wrapper').find('.task-doc-count').html( '<i class="fa fa-files-o"></i> ' + phase_count.approved + '/' + phase_count.total );
+            // Update
+            $( task_target ).siblings('.after-task-name').find('.psp-task-documents span.text').text( count.total );
+
+            $( task_target ).parents('.psp-task-list-wrapper').find('.task-doc-count').html( '<i class="fa fa-files-o"></i> ' + phase_count.approved + '/' + phase_count.total );
+
+        } else {
+
+            $( task_target ).find('.psp-task-documents span.text').text( count.total );
+
+        }
 
     }
 
