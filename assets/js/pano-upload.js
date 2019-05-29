@@ -236,7 +236,6 @@ jQuery(document).ready(function($) {
         rules: {
             file_url: {
                 required: '#file-type-web:checked',
-                url: true
             },
             upload_attachment: {
                 required: '#file-type-upload:checked'

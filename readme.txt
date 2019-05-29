@@ -46,6 +46,9 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 1.6.3.4 =
+* Allows non-valid URLs in web address field for local stored files
+
 = 1.6.3.1 =
 * Back ported for older versions of Panorama
 
