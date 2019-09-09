@@ -1,0 +1,134 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Project Panorama Frontend Upload\n"
+"POT-Creation-Date: 2019-09-09 11:53-0400\n"
+"PO-Revision-Date: 2019-09-09 11:53-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: panorama-file-upload.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: lib/controller.php:181
+msgid "has posted a new file to "
+msgstr ""
+
+#: lib/controller.php:184
+msgid "posted "
+msgstr ""
+
+#: lib/controller.php:184
+msgid "to the project"
+msgstr ""
+
+#: lib/views.php:33 lib/views.php:46 lib/views.php:89 lib/views.php:146
+msgid "Add Document"
+msgstr ""
+
+#: lib/views.php:115
+msgid "Notify"
+msgstr ""
+
+#: lib/views.php:120
+msgid "All Users"
+msgstr ""
+
+#: lib/views.php:124
+msgid "Specific Users"
+msgstr ""
+
+#: lib/views.php:139
+msgid "Message"
+msgstr ""
+
+#: lib/views.php:146
+msgid "Cancel"
+msgstr ""
+
+#: lib/views.php:287
+msgid "Title"
+msgstr ""
+
+#: lib/views.php:293
+msgid "Description"
+msgstr ""
+
+#: lib/views.php:304
+msgid "No Approval Needed"
+msgstr ""
+
+#: lib/views.php:314
+msgid "File Type"
+msgstr ""
+
+#: lib/views.php:319
+msgid "Upload"
+msgstr ""
+
+#: lib/views.php:325 lib/views.php:336
+msgid "Web Address"
+msgstr ""
+
+#: lib/views.php:343
+msgid "Upload File"
+msgstr ""
+
+#: panorama-file-upload.php:81
+msgid "...a file is uploaded to a project"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:358
+msgid "Check for updates"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:405
+#, php-format
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:407
+#, php-format
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:409
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:85
+msgid "There is no changelog available."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Project Panorama Frontend Upload"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/3pointross/psp-frontend-upload"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Let your clients and project managers upload files from the front end"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SnapOrbital"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.projectpanorama.com"
+msgstr ""
