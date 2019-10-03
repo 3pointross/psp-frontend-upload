@@ -226,10 +226,8 @@ jQuery(document).ready(function($) {
 
     $('.js-pano-upload-file').leanModal({ closeButton: ".modal_close" });
 
-    $('#psp-projects').on( 'change', 'input[name=file-type]', function() {
-
+    $('body').on( 'change', 'p.psp-upload-field input', function() {
         panoAlterFields();
-
     });
 
     $('#pano-upload-form').validate({
