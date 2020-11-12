@@ -236,9 +236,11 @@ function psp_upload_field_radio( $field ) {
 function psp_upload_field_checkbox( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
+
     $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
+
         <?php if( isset($field['label']) && !empty($field['label'] ) ): ?>
             <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <?php
@@ -247,6 +249,7 @@ function psp_upload_field_checkbox( $field ) {
             <label for="<?php echo esc_attr($option['id']); ?>"><input type="checkbox" name="<?php echo esc_attr($option['name']); ?>" id="<?php echo esc_attr($option['id']); ?>" value="<?php echo esc_attr($option['value']); ?>"> <?php echo esc_html($option['label']); ?></label>
         <?php } ?>
    </div>
+
 
     <?php
 

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Project Panorama Frontend Upload\n"
-"POT-Creation-Date: 2020-11-08 14:39-0500\n"
-"PO-Revision-Date: 2020-11-08 14:39-0500\n"
+"POT-Creation-Date: 2020-11-12 11:37-0500\n"
+"PO-Revision-Date: 2020-11-12 11:37-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,31 +56,31 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/views.php:291
+#: lib/views.php:294
 msgid "Title"
 msgstr ""
 
-#: lib/views.php:297
+#: lib/views.php:300
 msgid "Description"
 msgstr ""
 
-#: lib/views.php:308
+#: lib/views.php:311
 msgid "No Approval Needed"
 msgstr ""
 
-#: lib/views.php:318
+#: lib/views.php:321
 msgid "File Type"
 msgstr ""
 
-#: lib/views.php:323
+#: lib/views.php:326
 msgid "Upload"
 msgstr ""
 
-#: lib/views.php:329 lib/views.php:340
+#: lib/views.php:332 lib/views.php:343
 msgid "Web Address"
 msgstr ""
 
-#: lib/views.php:347
+#: lib/views.php:350
 msgid "Upload File"
 msgstr ""
 
