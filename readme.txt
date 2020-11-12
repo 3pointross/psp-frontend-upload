@@ -46,6 +46,9 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 2.0 =
+* Updates for Panorama 2.0
+
 = 1.6.3.6 =
 * Changes what element the field switch binds to for theme compatibility
 

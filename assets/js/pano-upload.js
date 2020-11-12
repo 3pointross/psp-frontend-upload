@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
     psp_reset_upload_form();
 
     // When the button is clicked, populate the location hidden field with the buttons key
-    $('.js-pano-upload-file').click(function(e) {
+    $('body').on('click', '.js-pano-upload-file', function(e) {
 
         var phase_id    = $(this).data('phase-id');
 
@@ -69,28 +69,28 @@ jQuery(document).ready(function($) {
 
     if($('.all-upload-line').length) {
 
-        $('#psp-projects').on( 'click', '.all-do-checkbox', function() {
+        $('body').on( 'click', '.all-do-checkbox', function() {
 
             if( $(this).is(':checked') ) {
                 $(this).parents('#pano-upload-form').find('.psp-doc-upload-notify-fields').slideDown('fast');
                 $(this).parents('#pano-upload-form').find('input.specific-do-checkbox').prop('checked',false);
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list input').prop('checked',true);
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list').slideUp('fast');
+                $(this).parents('#pano-upload-form').find('.psp-notify-list input').prop('checked',true);
+                $(this).parents('#pano-upload-form').find('.psp-notify-list').slideUp('fast');
             } else {
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list input').prop('checked',false);
+                $(this).parents('#pano-upload-form').find('.psp-notify-list input').prop('checked',false);
             }
 
         });
 
-        $('#psp-projects').on( 'click', '.specific-do-checkbox', function() {
+        $('body').on( 'click', '.specific-do-checkbox', function() {
 
             if( $(this).is(':checked') ) {
                 $(this).parents('#pano-upload-form').find('.psp-doc-upload-notify-fields').slideDown('fast');
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list').slideDown('fast');
+                $(this).parents('#pano-upload-form').find('.psp-notify-list').slideDown('fast');
                 $(this).parents('#pano-upload-form').find('input.all-do-checkbox').prop('checked',false);
             } else {
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list').slideUp('fast');
-                $(this).parents('#pano-upload-form').find('ul.psp-notify-list input').prop('checked',false);
+                $(this).parents('#pano-upload-form').find('.psp-notify-list').slideUp('fast');
+                $(this).parents('#pano-upload-form').find('.psp-notify-list input').prop('checked',false);
             }
 
         });
@@ -125,7 +125,7 @@ jQuery(document).ready(function($) {
 
         $(this).find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
 
-		$('#pano-modal-upload').find('.psp-upload-loading').show();
+	   $('#pano-modal-upload').find('.psp-upload-loading').show();
 
         $.ajax({
             url: ajaxurl + '?action=psp_process_attach_file',
@@ -198,7 +198,7 @@ jQuery(document).ready(function($) {
 
     }
 
-    $('#psp-projects').on( 'change', '.psp-doc-upload-notify-checkbox', function() {
+    $('body').on( 'change', '.psp-doc-upload-notify-checkbox', function() {
 
         if( $(this).prop('checked') ) {
             $('.psp-doc-upload-notify-fields').slideDown( 'slow' );
@@ -226,7 +226,7 @@ jQuery(document).ready(function($) {
 
     $('.js-pano-upload-file').leanModal({ closeButton: ".modal_close" });
 
-    $('body').on( 'change', 'p.psp-upload-field input', function() {
+    $('body').on( 'change', '.psp-upload-field input', function() {
         panoAlterFields();
     });
 
@@ -293,7 +293,7 @@ jQuery(document).ready(function($) {
 
     function psp_update_document_stats( count ) {
 
-        $('#psp-stat-documents').find('h3').html( '<span>' + count.approved + '</span>/' + count.total );
+        $('#psp-stat-documents').find('.psp-h3').html( '<span>' + count.approved + '</span>/' + count.total );
 
         allSummaryCharts.documents.segments[0].value = count.total;
         allSummaryCharts.documents.segments[0].value = count.approved;

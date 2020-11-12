@@ -12,11 +12,6 @@
     display: inline-block;
 }
 
-#psp-projects .psp-upload-form li {
-    margin: 0;
-    padding: 0 0 10px 0;
-}
-
 .psp-upload-form label {
     font-weight: bold;
     font-size: 12px;
@@ -34,13 +29,6 @@
     margin-top: 5px;
 }
 
-.psp-upload-form input[type=text] {
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    padding: 3%;
-    width: 94%;
-}
-
 .psp-web-address-field,
 .psp-upload-file-field {
     display: none;
@@ -50,75 +38,11 @@
     margin-top: 15px !important;
 }
 
-.m-psp-file-upload {
-    border-radius: 4px;
-	background: #fff;
-    width: 600px;
-    margin-top: 25px;
-    font-size: 12px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    display: none;
-    max-height: calc(100vh - 140px);
-    overflow-y: auto;
-}
-
-.m-psp-inline-upload {
-    border: 1px solid #ddd;
-    padding: 15px;
-}
-
-.m-psp-inline-upload .m-psp-file-upload {
-    display: block;
-    box-shadow: none;
-    max-height: none;
-    overflow-y: visible;
-    width: auto;
-    border-radius: 0;
-    border-radius: 0;
-}
-
-.m-psp-inline-upload .m-psp-file-upload h2 {
-    padding: 15px 10px !important;
-    font-size: 18px !important;
-    border-radius: 0;
-    margin: -41px -16px 15px -16px !important;
-}
-
-.m-psp-inline-upload label {
-	font-size: 14px;
-	font-weight: bold;
-	display: block;
-	color: #333;
-	margin-bottom: 5px;
-}
-
-#psp-projects .m-psp-inline-upload p {
-    margin-bottom: 10px;
-}
-
-.m-psp-inline-upload input[type='text'] {
-    width: 100%;
-}
-
-
-.pano-modal-wrap {
-    padding: 20px;
-}
-
 .pano-modal-doc-actions {
     background: #f1f1f1;
     padding: 10px 0 10px 0;
     text-align: center;
     margin: 15px -20px -20px;
-}
-
-.m-psp-file-upload h2 {
-    color: #fafafa !important;
-    background: #3299bb;
-    text-align: center;
-    border-radius: 4px 4px 0 0;
-    margin: -20px -20px 20px -20px !important;
-    padding: 15px !important;
 }
 
 .pano-modal-add-btn {
@@ -131,11 +55,16 @@
     padding-bottom: 7px
 }
 
-#psp-projects .m-psp-file-upload ul.psp-notify-list {
+#psp-projects .m-psp-file-upload .psp-notify-list {
     margin-top: 10px;
     max-height: 200px;
     overflow: auto;
     display: none;
+}
+
+#psp-projects .psp-form-fields .psp-form-field .psp-notify-user label {
+     display: inline-block;
+     font-weight: normal;
 }
 
 .psp-doc-upload-notify-fields {
@@ -146,27 +75,17 @@
     display: inline-block;
 }
 
-#psp-projects p.psp-needs-approval-field {
+#psp-projects .psp-needs-approval-field {
     margin-bottom: 15px;
 }
 
-.m-psp-file-upload ul.psp-notify-list li.all-line {
+.m-psp-file-upload .psp-notify-list .all-line {
 	display: block;
 	line-height: auto;
 	margin-bottom: 5px !important;
 	padding: 0 0 5px 0 !important;
 	border-bottom: 1px solid #efefef;
 	background: transparent;
-}
-
-.m-psp-file-upload textarea {
-	width: 100%;
-	display: block;
-	min-height: 100px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	margin-bottom: 10px;
-	padding: 10px;
 }
 
 .psp-fu-loading-image {
@@ -186,7 +105,7 @@
 	right: 0;
 }
 
-.psp-task-documents p.pano-add-file-btn a {
+.psp-task-documents .pano-add-file-btn a {
     display: block;
     width: 100%;
     text-align: center;

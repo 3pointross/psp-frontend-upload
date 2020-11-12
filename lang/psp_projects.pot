@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Project Panorama Frontend Upload\n"
-"POT-Creation-Date: 2019-09-09 11:53-0400\n"
-"PO-Revision-Date: 2019-09-09 11:53-0400\n"
+"POT-Creation-Date: 2020-11-12 11:37-0500\n"
+"PO-Revision-Date: 2020-11-12 11:37-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,55 +32,55 @@ msgstr ""
 msgid "to the project"
 msgstr ""
 
-#: lib/views.php:33 lib/views.php:46 lib/views.php:89 lib/views.php:146
+#: lib/views.php:33 lib/views.php:46 lib/views.php:90 lib/views.php:150
 msgid "Add Document"
 msgstr ""
 
-#: lib/views.php:115
+#: lib/views.php:119
 msgid "Notify"
 msgstr ""
 
-#: lib/views.php:120
+#: lib/views.php:124
 msgid "All Users"
 msgstr ""
 
-#: lib/views.php:124
+#: lib/views.php:128
 msgid "Specific Users"
 msgstr ""
 
-#: lib/views.php:139
+#: lib/views.php:143
 msgid "Message"
 msgstr ""
 
-#: lib/views.php:146
+#: lib/views.php:150
 msgid "Cancel"
 msgstr ""
 
-#: lib/views.php:287
+#: lib/views.php:294
 msgid "Title"
 msgstr ""
 
-#: lib/views.php:293
+#: lib/views.php:300
 msgid "Description"
 msgstr ""
 
-#: lib/views.php:304
+#: lib/views.php:311
 msgid "No Approval Needed"
 msgstr ""
 
-#: lib/views.php:314
+#: lib/views.php:321
 msgid "File Type"
 msgstr ""
 
-#: lib/views.php:319
+#: lib/views.php:326
 msgid "Upload"
 msgstr ""
 
-#: lib/views.php:325 lib/views.php:336
+#: lib/views.php:332 lib/views.php:343
 msgid "Web Address"
 msgstr ""
 
-#: lib/views.php:343
+#: lib/views.php:350
 msgid "Upload File"
 msgstr ""
 
@@ -88,8 +88,28 @@ msgstr ""
 msgid "...a file is uploaded to a project"
 msgstr ""
 
+#: plugin-update-checker/github-checker.php:119
+#: vendor/plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:85
+msgid "There is no changelog available."
+msgstr ""
+
+#: plugin-update-checker/plugin-update-checker.php:763
 #: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:358
 msgid "Check for updates"
+msgstr ""
+
+#: plugin-update-checker/plugin-update-checker.php:807
+msgid "This plugin is up to date."
+msgstr ""
+
+#: plugin-update-checker/plugin-update-checker.php:809
+msgid "A new version of this plugin is available."
+msgstr ""
+
+#: plugin-update-checker/plugin-update-checker.php:811
+#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:409
+#, php-format
+msgid "Unknown update checker status \"%s\""
 msgstr ""
 
 #: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:405
@@ -102,15 +122,6 @@ msgstr ""
 #, php-format
 msgctxt "the plugin title"
 msgid "A new version of the %s plugin is available."
-msgstr ""
-
-#: vendor/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:409
-#, php-format
-msgid "Unknown update checker status \"%s\""
-msgstr ""
-
-#: vendor/plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:85
-msgid "There is no changelog available."
 msgstr ""
 
 #. Plugin Name of the plugin/theme

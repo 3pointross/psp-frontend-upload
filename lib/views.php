@@ -86,9 +86,11 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
 			<img src="<?php echo esc_url( PSP_FILE_UPLOAD_DIR . '/assets/img/loading.gif'); ?>" alt="Loading" class="psp-fu-loading-image">
 		</div>
 
-        <h2><?php esc_html_e( 'Add Document', 'psp_projects' ); ?></h2>
+          <div class="psp-modal-header">
+               <div class="psp-h2"><?php esc_html_e( 'Add Document', 'psp_projects' ); ?></div>
+          </div>
 
-        <form id="pano-upload-form" class="m-pano-upload-form" action="<?php the_permalink(); ?>" method="post" autocomplete="false" class="form" enctype="multipart/form-data">
+        <form id="pano-upload-form" class="m-pano-upload-form psp-form-fields" action="<?php the_permalink(); ?>" method="post" autocomplete="false" class="form" enctype="multipart/form-data">
 
             <?php
             $fields = psp_upload_get_fields( $post_id, $task_id );
@@ -112,38 +114,40 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
 
             <?php if( psp_get_project_users($post_id) ): ?>
 
-                <p><strong><?php esc_html_e( 'Notify', 'psp_projects' ); ?></strong></p>
+                 <div class="psp-form-field">
 
-                <p class="all-upload-line">
-                    <label for="psp-do-all">
-                        <input type="checkbox" class="all-do-checkbox" id="psp-do-all" name="psp-do-all" value="yes" class="psp-doc-upload-notify-checkbox" id="psp-do-all">
-                        <?php esc_html_e( 'All Users', 'psp_projects' ); ?>
-                    </label>
-                    <label for="psp-do-specific">
-                        <input type="checkbox" class="specific-do-checkbox" id="psp-do-specific" name="psp-do-specific" value="specific">
-                        <?php esc_html_e( 'Specific Users', 'psp_projects' ); ?>
-                    </label>
-                </p>
+                      <label><?php esc_html_e( 'Notify', 'psp_projects' ); ?></label>
 
-                <ul class="psp-notify-list">
-            		<?php
-					$users = psp_get_project_users($post_id);
-                    $i     = 0;
-					foreach( $users as $user ):
-						$username = psp_get_nice_username( $user ); ?>
-						<li><label for="psp-upload-user-<?php echo esc_attr($i); ?>"><input type="checkbox" name="psp-user[]" value="<?php echo esc_attr($user['ID']); ?>" class="psp-notify-user-box" id="psp-upload-user-<?php echo esc_attr($i); ?>"><?php echo esc_html($username); ?></label></li>
+                     <div class="all-upload-line">
+                         <label for="psp-do-all">
+                             <input type="checkbox" class="all-do-checkbox" id="psp-do-all" name="psp-do-all" value="yes" class="psp-doc-upload-notify-checkbox" id="psp-do-all">
+                             <?php esc_html_e( 'All Users', 'psp_projects' ); ?>
+                         </label>
+                         <label for="psp-do-specific">
+                             <input type="checkbox" class="specific-do-checkbox" id="psp-do-specific" name="psp-do-specific" value="specific">
+                             <?php esc_html_e( 'Specific Users', 'psp_projects' ); ?>
+                         </label>
+                    </div>
+
+                     <div class="psp-notify-list">
+                 		<?php
+		               $users = psp_get_project_users($post_id);
+                         $i  = 0;
+     				foreach( $users as $user ): $username = psp_get_nice_username( $user ); ?>
+     						<div class="psp-notify-user"><label for="psp-upload-user-<?php echo esc_attr($i); ?>"><input type="checkbox" name="psp-user[]" value="<?php echo esc_attr($user['ID']); ?>" class="psp-notify-user-box" id="psp-upload-user-<?php echo esc_attr($i); ?>"><?php echo esc_html($username); ?></label></div>
 					<?php $i++; endforeach; ?>
-    		    </ul>
+     		    </div>
+              </div>
 
-       	 		<p class="psp-doc-upload-notify-fields">
+  	 		<div class=" psp-form-field psp-doc-upload-notify-fields">
                     <label for="psp-doc-message"><?php _e('Message','psp_projects'); ?></label>
                     <textarea name="psp-doc-message"></textarea>
-                </p>
+               </div>
 
 			<?php endif; ?>
 
             <div class="psp-modal-actions">
-                <p class="pano-modal-add-btn"><input type="submit" value="<?php esc_html_e( 'Add Document', 'psp_projects' ); ?>" class="pano-btn pano-btn-primary"> <a href="#" class="modal_close"><?php _e( 'Cancel', 'psp_projects' ); ?></a></p>
+                <div class="pano-modal-add-btn"><input type="submit" value="<?php esc_html_e( 'Add Document', 'psp_projects' ); ?>" class="pano-btn pano-btn-primary"> <a href="#" class="modal_close"><?php _e( 'Cancel', 'psp_projects' ); ?></a></div>
             </div>
 
         </form>
@@ -180,12 +184,12 @@ function psp_upload_field_text( $field ) {
 
     $value      = ( isset($field['value']) ? $field['value'] : '' );
     $required   = ( isset($field['required']) ? 'required' : '' );
-    $class      = 'psp-upload-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class      = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
-    <p class="<?php echo esc_attr($class); ?>">
+    <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <input type="text" name="<?php echo esc_attr($field['name']); ?>" value="<?php echo esc_attr($value); ?>" id="<?php echo esc_attr($field['id']); ?>" <?php echo esc_attr($required); ?>>
-    </p>
+   </div>
 
     <?php
 
@@ -201,12 +205,12 @@ function psp_upload_field_hidden( $field ) { ?>
 function psp_upload_field_file( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field ' . isset($field['class']) ? $field['class'] : ''; ?>
+    $class = 'psp-upload-field  psp-form-field ' . isset($field['class']) ? $field['class'] : ''; ?>
 
-    <p class="<?php echo esc_attr($class); ?>">
+    <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <input type="file" name="<?php echo esc_attr($field['name']); ?>" class="files" size="50" id="<?php echo esc_attr($field['id']); ?>" <?php echo esc_attr($required); ?>>
-    </p>
+   </div>
 
     <?php
 
@@ -215,15 +219,15 @@ function psp_upload_field_file( $field ) {
 function psp_upload_field_radio( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
-    <p class="<?php echo esc_attr($class); ?>">
+    <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <?php
         foreach( $field['options'] as $option ) { ?>
             <label for="<?php echo esc_attr($option['id']); ?>"><input type="radio" name="<?php echo esc_attr($option['name']); ?>" id="<?php echo esc_attr($option['id']); ?>" value="<?php echo esc_attr($option['value']); ?>"> <?php echo esc_html($option['label']); ?></label>
         <?php } ?>
-    </p>
+   </div>
 
     <?php
 
@@ -232,9 +236,11 @@ function psp_upload_field_radio( $field ) {
 function psp_upload_field_checkbox( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
-    <p class="<?php echo esc_attr($class); ?>">
+    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+
+    <div class="<?php echo esc_attr($class); ?>">
+
         <?php if( isset($field['label']) && !empty($field['label'] ) ): ?>
             <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
         <?php
@@ -242,7 +248,8 @@ function psp_upload_field_checkbox( $field ) {
         foreach( $field['options'] as $option ) { ?>
             <label for="<?php echo esc_attr($option['id']); ?>"><input type="checkbox" name="<?php echo esc_attr($option['name']); ?>" id="<?php echo esc_attr($option['id']); ?>" value="<?php echo esc_attr($option['value']); ?>"> <?php echo esc_html($option['label']); ?></label>
         <?php } ?>
-    </p>
+   </div>
+
 
     <?php
 

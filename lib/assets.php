@@ -1,5 +1,5 @@
 <?php
-add_action('psp_head','panorama_add_assets');
+// add_action('psp_head','panorama_add_assets');
 function panorama_add_assets() { ?>
     <link rel="stylesheet" type="text/css" href="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/css/pano-upload.css?ver=<?php echo PSP_FILE_UPLOAD_VER; ?>">
     <script src="<?php echo PSP_FILE_UPLOAD_DIR; ?>/assets/js/jquery.validation.min.js?ver=<?php echo PSP_FILE_UPLOAD_VER; ?>"></script>
