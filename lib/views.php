@@ -12,6 +12,8 @@ function psp_add_upload_field() {
 
 }
 
+
+
 /*
  * Button to phase documents area
  */
@@ -58,7 +60,7 @@ function psp_add_upload_modal_footer() {
 
     global $post;
 
-    if( has_shortcode( $post->post_content, 'project_status' ) || is_singular('psp_projects') ) {
+    if( ( isset($post->post_content) && has_shortcode( $post->post_content, 'project_status' ) ) || is_singular('psp_projects') ) {
         echo '<div id="psp-projects">';
             psp_add_upload_modal();
         echo '</div>';
