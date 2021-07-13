@@ -43,7 +43,18 @@ jQuery(document).ready(function($) {
     $('body').on( 'click', '.js-pano-upload-file-inline', function(e) {
 
         e.preventDefault();
-        $(this).parent().siblings('.m-psp-inline-upload').slideDown('fast');
+
+        var form = $(this).parent().siblings('.m-psp-inline-upload');
+
+        $(form).slideDown('fast');
+        $(form).find('#file-type-upload').prop( 'checked', true );
+        $(form).find('.psp-upload-file-field').show();
+
+        $('body').on( 'change', form + ' .psp-upload-field input', function() {
+            var elm = $(this);
+            panoAlterFields( elm );
+        });
+
         $(this).slideUp('fast');
 
     });
@@ -212,9 +223,9 @@ jQuery(document).ready(function($) {
 
     });
 
-    function panoAlterFields() {
+    function panoAlterFields( elm ) {
 
-        var currentState = $('input[name=file-type]:checked').val();
+        var currentState = $(elm).val();
 
         if (currentState == 'upload') {
             $('.psp-upload-file-field').show();
@@ -226,14 +237,18 @@ jQuery(document).ready(function($) {
 
     }
 
-    panoAlterFields();
+    $('.psp-upload-field').each(function() {
+         $(this).find('#file-type-upload').prop( 'checked', true );
+         panoAlterFields( $(this) );
+    });
 
     if( typeof $.fn.leanModal !== "undefined" ) {
          $('.js-pano-upload-file').leanModal({ closeButton: ".modal_close" });
     }
 
     $('body').on( 'change', '.psp-upload-field input', function() {
-        panoAlterFields();
+        var elm = $(this);
+        panoAlterFields( elm );
     });
 
     $('#pano-upload-form').validate({

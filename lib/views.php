@@ -88,6 +88,8 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
 			<img src="<?php echo esc_url( PSP_FILE_UPLOAD_DIR . '/assets/img/loading.gif'); ?>" alt="Loading" class="psp-fu-loading-image">
 		</div>
 
+          <a class="modal_close psp-modal-x" href="#"><i class="fa fa-close"></i></a>
+
           <div class="psp-modal-header">
                <div class="psp-h2"><?php esc_html_e( 'Add Document', 'psp_projects' ); ?></div>
           </div>
@@ -207,7 +209,7 @@ function psp_upload_field_hidden( $field ) { ?>
 function psp_upload_field_file( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field  psp-form-field ' . isset($field['class']) ? $field['class'] : ''; ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-file ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
@@ -221,7 +223,7 @@ function psp_upload_field_file( $field ) {
 function psp_upload_field_radio( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-radio ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
@@ -239,7 +241,7 @@ function psp_upload_field_checkbox( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
 
-    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-checkbox ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
 
