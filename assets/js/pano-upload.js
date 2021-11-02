@@ -237,7 +237,7 @@ jQuery(document).ready(function($) {
 
     }
 
-    $('.psp-upload-field').each(function() {
+    $('#psp-upload-field').each(function() {
          $(this).find('#file-type-upload').prop( 'checked', true );
          panoAlterFields( $(this) );
     });

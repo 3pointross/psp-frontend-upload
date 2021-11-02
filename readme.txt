@@ -46,6 +46,9 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 2.0.6 =
+* Fixes issue with having the wrong upload field selected by default
+
 = 2.0.5 =
 * Updates to support tasks in new task modal
 * UI improvements
