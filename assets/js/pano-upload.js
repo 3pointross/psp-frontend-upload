@@ -246,7 +246,7 @@ jQuery(document).ready(function($) {
          $('.js-pano-upload-file').leanModal({ closeButton: ".modal_close" });
     }
 
-    $('body').on( 'change', '.psp-upload-field input', function() {
+    $('body').on( 'change', '.psp-upload-field input[name="file-type"]', function() {
         var elm = $(this);
         panoAlterFields( elm );
     });
