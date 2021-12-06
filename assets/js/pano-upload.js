@@ -17,9 +17,20 @@ jQuery(document).ready(function($) {
 
         $('.psp-task-documents .pano-btn').fadeIn('fast');
 
-		$('body').removeClass('psp-modal-on');
+	   $('body').removeClass('psp-modal-on');
         $('#psp-projects').removeClass('psp-has-modal');
         $('.psp-modal-wrap').fadeOut();
+
+        if( typeof psp_notify_all !== 'undefined' && psp_notify_all == true ) {
+             $('#pano-upload-form').find('#psp-do-all').prop( 'checked', true );
+             $('#pano-upload-form').find('.psp-notify-user-box').prop( 'checked', true );
+             $('#pano-upload-form').find('.psp-doc-upload-notify-fields').show();
+        }
+
+        if( typeof(tinymce) !== 'undefined' ) {
+             var editor_id = $('#pano-upload-form').find('textarea').attr('id');
+             psp_tinymce_clear( editor_id );
+        }
 
     }
     psp_reset_upload_form();
@@ -38,6 +49,8 @@ jQuery(document).ready(function($) {
             $('.m-psp-file-upload').attr( 'action', window.location );
         }
 
+        psp_tinymce_comments( '#psp-upload-doc-message' );
+
     });
 
     $('body').on( 'click', '.js-pano-upload-file-inline', function(e) {
@@ -49,6 +62,8 @@ jQuery(document).ready(function($) {
         $(form).slideDown('fast');
         $(form).find('#file-type-upload').prop( 'checked', true );
         $(form).find('.psp-upload-file-field').show();
+
+        psp_tinymce_comments( '#psp-upload-doc-message-task' );
 
         $('body').on( 'change', form + ' .psp-upload-field input', function() {
             var elm = $(this);
@@ -64,6 +79,7 @@ jQuery(document).ready(function($) {
         e.preventDefault();
         $(this).parents('.psp-task-documents').find('.m-psp-inline-upload').slideUp('fast');
         $(this).parents('.psp-task-documents').find('.pano-add-file-btn a').slideDown('fast');
+        psp_reset_upload_form();
 
     });
 
@@ -107,6 +123,20 @@ jQuery(document).ready(function($) {
         });
 
     }
+
+     $('body').on('click', '#psp-offcanvas-task-details .modal-close', function() {
+
+          if( typeof tinymce !== 'undefined' ) {
+
+               var tinymceEditor = tinymce.get('psp-upload-doc-message');
+
+               if( typeof(tinymceEditor) !== 'undefined' ) {
+                    tinymce.get('psp-upload-doc-message-task').remove();
+               }
+
+          }
+
+     });
 
     $(document).on( 'submit', '.m-pano-upload-form', function(e) {
 
@@ -164,7 +194,13 @@ jQuery(document).ready(function($) {
                 $(target).find('.psp-documents-row').prepend( response.data.results.markup );
 
                 if( is_task_panel ) {
+
                     $('.m-psp-inline-upload').slideUp();
+
+                    if( typeof tinymce !== 'undefined' ) {
+     				tinymce.get('psp-upload-doc-message-task').remove();
+     			}
+
                 } else {
                     $('.m-psp-file-upload').fadeOut('slow');
                 }

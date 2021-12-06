@@ -143,9 +143,12 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
      		    </div>
               </div>
 
+              <?php
+              $textarea_id = 'psp-upload-doc-message' . ( isset($task_id) ? '-task' : '' ); ?>
+
   	 		<div class=" psp-form-field psp-doc-upload-notify-fields">
                     <label for="psp-doc-message"><?php _e('Message','psp_projects'); ?></label>
-                    <textarea name="psp-doc-message"></textarea>
+                    <textarea name="psp-doc-message" id="<?php echo esc_attr($textarea_id); ?>"></textarea>
                </div>
 
 			<?php endif; ?>

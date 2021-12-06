@@ -46,6 +46,12 @@ A. This is not supported at the moment
 = Q. I don't see the add file button? =
 A. Make sure that the project is restricting access to specific users. Then make sure you have the most recent version of project panorama.
 
+= 2.0.9 =
+* Supports rich text for upload messages
+
+= 2.0.8 =
+* Supports notify all users by default option
+
 = 2.0.7 =
 * Additional fixes per 2.0.6 issue
 
