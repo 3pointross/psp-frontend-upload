@@ -149,6 +149,7 @@ jQuery(document).ready(function($) {
 
         $(this).find('input[name="psp-ajax"]').val(1);
 
+        var modal       = $(this).parents('.m-psp-file-upload');
         var ajaxurl     = $('#psp-ajax-url').val();
         var formdata    = new FormData( $(this)[0] );
 
@@ -169,7 +170,7 @@ jQuery(document).ready(function($) {
 
         $(this).find('input[type="submit"]').prop( 'disabled', true ).addClass('disabled');
 
-	   $('#pano-modal-upload').find('.psp-upload-loading').show();
+	   $(modal).find('.psp-upload-loading').show();
 
         $.ajax({
             url: ajaxurl + '?action=psp_process_attach_file',
@@ -216,7 +217,7 @@ jQuery(document).ready(function($) {
 
                 psp_reset_upload_form();
 
-				$('.psp-upload-loading').hide();
+			 $(modal).find('.psp-upload-loading').hide();
 
                 if( is_task_panel ) {
                     psp_update_task_document_stats( target, task_target, response.data.results.counts.task, response.data.results.counts.phase_tasks );
