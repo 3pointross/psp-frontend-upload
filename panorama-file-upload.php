@@ -3,7 +3,7 @@
  * Plugin Name: Project Panorama Frontend Upload
  * Plugin URI: https://github.com/3pointross/psp-frontend-upload
  * Description: Let your clients and project managers upload files from the front end
- * Version: 2.0.9
+ * Version: 2.0.10
  * Author: SnapOrbital
  * Author URI: http://www.projectpanorama.com
  * License: GPL2
@@ -19,7 +19,7 @@ function psp_upload_localize_init() {
 }
 
 $constants = array(
-    'PSP_FILE_UPLOAD_VER'   =>  '2.0.9',
+    'PSP_FILE_UPLOAD_VER'   =>  '2.0.10',
     'PSP_FILE_UPLOAD_DIR'   =>  plugins_url( '', __FILE__ ),
 );
 

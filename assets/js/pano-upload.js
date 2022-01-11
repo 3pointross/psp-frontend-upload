@@ -128,9 +128,9 @@ jQuery(document).ready(function($) {
 
           if( typeof tinymce !== 'undefined' ) {
 
-               var tinymceEditor = tinymce.get('psp-upload-doc-message');
+               var tinymceEditor = tinymce.get('psp-upload-doc-message-task');
 
-               if( typeof(tinymceEditor) !== 'undefined' ) {
+               if( typeof(tinymceEditor) !== 'undefined' && tinymceEditor !== null ) {
                     tinymce.get('psp-upload-doc-message-task').remove();
                }
 
