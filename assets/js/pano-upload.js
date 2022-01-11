@@ -58,6 +58,9 @@ jQuery(document).ready(function($) {
         e.preventDefault();
 
         var form = $(this).parent().siblings('.m-psp-inline-upload');
+        var formInput = $(form).find('input[name="file-type"]');
+
+        console.log(formInput);
 
         $(form).slideDown('fast');
         $(form).find('#file-type-upload').prop( 'checked', true );
@@ -65,7 +68,7 @@ jQuery(document).ready(function($) {
 
         psp_tinymce_comments( '#psp-upload-doc-message-task' );
 
-        $('body').on( 'change', form + ' .psp-upload-field input', function() {
+        $('body').on( 'change', formInput, function() {
             var elm = $(this);
             panoAlterFields( elm );
         });
@@ -263,12 +266,14 @@ jQuery(document).ready(function($) {
 
         var currentState = $(elm).val();
 
+        var form = $(elm).parents('.m-pano-upload-form');
+
         if (currentState == 'upload') {
-            $('.psp-upload-file-field').show();
-            $('.psp-web-address-field').hide();
+            $(form).find('.psp-upload-file-field').show();
+            $(form).find('.psp-web-address-field').hide();
         } else {
-            $('.psp-web-address-field').show();
-            $('.psp-upload-file-field').hide();
+            $(form).find('.psp-web-address-field').show();
+            $(form).find('.psp-upload-file-field').hide();
         }
 
     }
