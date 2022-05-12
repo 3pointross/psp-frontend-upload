@@ -156,3 +156,16 @@
      background: #f1f2f7;
      border-radius: 0 0 4px 4px;
 }
+
+#psp-projects .m-psp-inline-upload .psp-modal {
+     display: block;
+     transform: none;
+     box-shadow: none;
+     position: static !important;
+     margin-bottom: 0 !important;
+
+}
+
+#psp-projects .m-psp-inline-upload .psp-modal .psp-modal-x {
+     display: none;
+}
