@@ -40,7 +40,7 @@ function psp_file_upload_button( $phase_key = 'global', $phase_id = 'global' ) {
  * Button to tasks document area
  */
 add_action( 'psp_after_task_doc_list', 'psp_task_upload_button', 10, 3 );
-function psp_task_upload_button( $post_id = null, $task_index = null, $task_id = null ) {
+function psp_task_upload_button( $post_id = null, $task_id = null, $task_index = null ) {
 
     // Gate, can the user login or do they have permission to upload documents?
     if( !is_user_logged_in() || !current_user_can( 'psp_upload_documents' ) ) return;
@@ -72,7 +72,7 @@ function psp_add_upload_modal_footer() {
  * The document upload form
  */
 add_action( 'psp_task_file_upload', 'psp_add_upload_modal', 99, 3 );
-add_action( 'psp_footer', 'psp_add_upload_modal', 99 );
+add_action( 'psp_footer', 'psp_add_upload_modal', 99, 3 );
 function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = null) {
 
     if( !isset($post_id) || empty($post_id) ) {
