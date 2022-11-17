@@ -40,7 +40,7 @@ function psp_file_upload_button( $phase_key = 'global', $phase_id = 'global' ) {
  * Button to tasks document area
  */
 add_action( 'psp_after_task_doc_list', 'psp_task_upload_button', 10, 3 );
-function psp_task_upload_button( $post_id = null, $task_index = null, $task_id = null ) {
+function psp_task_upload_button( $post_id = null, $task_id = null, $task_index = null ) {
 
     // Gate, can the user login or do they have permission to upload documents?
     if( !is_user_logged_in() || !current_user_can( 'psp_upload_documents' ) ) return;
@@ -72,7 +72,7 @@ function psp_add_upload_modal_footer() {
  * The document upload form
  */
 add_action( 'psp_task_file_upload', 'psp_add_upload_modal', 99, 3 );
-add_action( 'psp_footer', 'psp_add_upload_modal', 99 );
+add_action( 'psp_footer', 'psp_add_upload_modal', 99, 3 );
 function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = null) {
 
     if( !isset($post_id) || empty($post_id) ) {
@@ -87,6 +87,8 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
 		<div class="psp-upload-loading">
 			<img src="<?php echo esc_url( PSP_FILE_UPLOAD_DIR . '/assets/img/loading.gif'); ?>" alt="Loading" class="psp-fu-loading-image">
 		</div>
+
+          <a class="modal_close psp-modal-x" href="#"><i class="fa fa-close"></i></a>
 
           <div class="psp-modal-header">
                <div class="psp-h2"><?php esc_html_e( 'Add Document', 'psp_projects' ); ?></div>
@@ -141,9 +143,12 @@ function psp_add_upload_modal( $post_id = null, $task_index = null, $task_id = n
      		    </div>
               </div>
 
+              <?php
+              $textarea_id = 'psp-upload-doc-message' . ( isset($task_id) ? '-task' : '' ); ?>
+
   	 		<div class=" psp-form-field psp-doc-upload-notify-fields">
                     <label for="psp-doc-message"><?php _e('Message','psp_projects'); ?></label>
-                    <textarea name="psp-doc-message"></textarea>
+                    <textarea name="psp-doc-message" id="<?php echo esc_attr($textarea_id); ?>"></textarea>
                </div>
 
 			<?php endif; ?>
@@ -207,7 +212,7 @@ function psp_upload_field_hidden( $field ) { ?>
 function psp_upload_field_file( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field  psp-form-field ' . isset($field['class']) ? $field['class'] : ''; ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-file ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
@@ -221,7 +226,7 @@ function psp_upload_field_file( $field ) {
 function psp_upload_field_radio( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
-    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-radio ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
         <label for="<?php echo esc_attr($field['id']); ?>"><?php echo esc_html($field['label']); ?></label>
@@ -239,7 +244,7 @@ function psp_upload_field_checkbox( $field ) {
 
     $required = isset($field['required']) ? 'required' : '';
 
-    $class = 'psp-upload-field psp-form-field ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
+    $class = 'psp-upload-field psp-form-field psp-upload-field-checkbox ' . ( isset($field['class']) ? $field['class'] : '' ); ?>
 
     <div class="<?php echo esc_attr($class); ?>">
 

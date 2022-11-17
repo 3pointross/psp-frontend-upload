@@ -9,7 +9,15 @@
 }
 
 #psp-projects #pano-upload-form .all-upload-line label {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+}
+
+#psp-projects #pano-upload-form .all-upload-line label input[type='checkbox'] {
+}
+
+#psp-projects #pano-upload-form .all-upload-line label + label {
+     margin-left: 8px;
 }
 
 .psp-upload-form label {
@@ -60,10 +68,29 @@
     max-height: 200px;
     overflow: auto;
     display: none;
+    background: #f1f2f7;
+    margin: 10px;
+    position: relative;
+    padding: 20px;
+    border-radius: 4px;
 }
 
+#psp-projects .m-psp-file-upload .psp-notify-list::before {
+     position: absolute;
+     border-top: 15px solid #fff;
+     border-right: 15px solid transparent;
+     border-left: 15px solid transparent;
+     border-bottom: 0;
+     top: 0;
+     left: 25px;
+     content: '';
+}
+
+
 #psp-projects .psp-form-fields .psp-form-field .psp-notify-user label {
-     display: inline-block;
+     display: inline-flex;
+     align-items: center;
+     margin-bottom: 0;
      font-weight: normal;
 }
 
@@ -109,4 +136,36 @@
     display: block;
     width: 100%;
     text-align: center;
+}
+
+.psp-upload-field-radio {
+     padding: 16px 16px 0 16px;
+     border-radius: 4px 4px 0 0;
+     background: #f1f2f7;
+     margin-bottom: 0 !important;
+}
+
+.psp-upload-field-radio label {
+     margin-bottom: 0px !important;
+     padding-bottom: 8px !important;
+}
+
+.psp-web-address-field,
+.psp-upload-file-field {
+     padding: 16px;
+     background: #f1f2f7;
+     border-radius: 0 0 4px 4px;
+}
+
+#psp-projects .m-psp-inline-upload .psp-modal {
+     display: block;
+     transform: none;
+     box-shadow: none;
+     position: static !important;
+     margin-bottom: 0 !important;
+
+}
+
+#psp-projects .m-psp-inline-upload .psp-modal .psp-modal-x {
+     display: none;
 }
